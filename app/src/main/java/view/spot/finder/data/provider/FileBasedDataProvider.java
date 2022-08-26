@@ -14,8 +14,9 @@ public abstract class FileBasedDataProvider {
         try {
             return loadJsonFromFile(filePath);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            System.err.printf("An error occurred while loading data from %s : %s", filePath, e.getMessage());
         }
+        return null;
     }
 
     private static String loadJsonFromFile(@Nonnull String filePath) throws IOException {
