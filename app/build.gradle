@@ -5,10 +5,22 @@
  * For more details take a look at the 'Building Java & JVM projects' chapter in the Gradle
  * User Manual available at https://docs.gradle.org/7.5/userguide/building_java_projects.html
  */
-
 plugins {
     // Apply the application plugin to add support for building a CLI application in Java.
     id 'application'
+}
+
+version '1.0-SNAPSHOT'
+
+jar {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    manifest {
+        attributes 'Main-Class': 'view.spot.finder.App'
+    }
+
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
 }
 
 repositories {
@@ -17,6 +29,16 @@ repositories {
 }
 
 dependencies {
+    compileOnly 'org.projectlombok:lombok:1.18.22'
+    annotationProcessor 'org.projectlombok:lombok:1.18.22'
+    implementation 'commons-io:commons-io:2.6'
+    implementation 'com.google.code.gson:gson:2.9.1'
+    implementation 'com.amazonaws:aws-lambda-java-core:1.2.1'
+    implementation 'com.amazonaws:aws-lambda-java-events:3.11.0'
+
+    runtimeOnly 'com.amazonaws:aws-lambda-java-log4j2:1.5.1'
+
+
     // Use JUnit Jupiter for testing.
     testImplementation 'org.junit.jupiter:junit-jupiter:5.8.2'
 
@@ -28,6 +50,7 @@ application {
     // Define the main class for the application.
     mainClass = 'view.spot.finder.App'
 }
+
 
 tasks.named('test') {
     // Use JUnit Platform for unit tests.

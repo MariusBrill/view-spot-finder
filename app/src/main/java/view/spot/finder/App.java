@@ -3,12 +3,27 @@
  */
 package view.spot.finder;
 
+import view.spot.finder.data.models.Element;
+import view.spot.finder.data.mesh.Mesh;
+import view.spot.finder.out.ElementListPrinter;
+import view.spot.finder.data.provider.FileBasedDataProvider;
+import view.spot.finder.spotfinder.MeshSpotFinder;
+import view.spot.finder.validation.InputValidator;
+
+import java.util.List;
+
 public class App {
-    public String getGreeting() {
-        return "Hello World!";
+    public static void main(String[] args) {
+        if(InputValidator.validate(args)) {
+            run(args[0], Integer.parseInt(args[1]));
+        }
     }
 
-    public static void main(String[] args) {
-        System.out.println(new App().getGreeting());
+    public static void run(String fileName, int maxSpotViews) {
+        String jsonString = FileBasedDataProvider.loadJSONObjectFromFile(fileName);
+        Mesh mesh = Mesh.fromJsonString(jsonString);
+        MeshSpotFinder finder = new MeshSpotFinder(mesh);
+        List<Element> viewSpotList =  finder.findSpots(maxSpotViews);
+        ElementListPrinter.print(viewSpotList);
     }
 }
