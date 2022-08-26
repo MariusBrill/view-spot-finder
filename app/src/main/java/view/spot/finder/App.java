@@ -12,6 +12,9 @@ import view.spot.finder.validation.InputValidator;
 
 import java.util.List;
 
+/**
+ * This class serves as entry point for the view-spot-finder.
+ */
 public class App {
     public static void main(String[] args) {
         if(InputValidator.validate(args)) {

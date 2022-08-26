@@ -9,6 +9,9 @@ import view.spot.finder.data.models.Node;
 import javax.annotation.Nonnull;
 import java.util.*;
 
+/**
+ * This class represents a mesh. It should only be instantiated using {@link JSONMeshLoaderJob}.
+ */
 @Getter
 public class Mesh {
 

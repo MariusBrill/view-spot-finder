@@ -19,7 +19,6 @@ public class Element {
     public Element(@Nonnull String id, @Nonnull String ... nodeIds) {
         this.id = id;
         this.nodes = Arrays.asList(nodeIds);
-        //this.neighbours = new ArrayList<>();
     }
 
     @Override

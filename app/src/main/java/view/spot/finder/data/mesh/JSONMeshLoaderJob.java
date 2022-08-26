@@ -11,12 +11,18 @@ import view.spot.finder.data.models.Node;
 import javax.annotation.Nonnull;
 import java.util.*;
 
+/**
+ * This class is used to create instances of {@link Mesh} from JSON-Strings.
+ */
 @RequiredArgsConstructor
 public class JSONMeshLoaderJob {
 
     private final Map<String, List<Element>> nodeToElementRelation = new HashMap<>();
     private Map<String, Element> elementMap = new HashMap<>();
 
+    /**
+     * The JSON-String the Mesh should be created from.
+     */
     @Nonnull
     private String jsonString;
 
@@ -59,6 +65,9 @@ public class JSONMeshLoaderJob {
         values.forEach(value -> elementMap.get(value.getElement_id()).setHeight(value.getValue()));
     }
 
+    /**
+     * Data Wrapper to easily use {@link Gson} with the data model provided.
+     */
     @Data
     @AllArgsConstructor
     private class RawMeshDataWrapper {
