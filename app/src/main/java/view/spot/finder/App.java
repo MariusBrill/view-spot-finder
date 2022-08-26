@@ -23,7 +23,7 @@ public class App {
     }
 
     public static void run(String fileName, int maxSpotViews) {
-        String jsonString = FileBasedDataProvider.loadJSONObjectFromFile(fileName);
+        String jsonString = FileBasedDataProvider.load(fileName);
         if(jsonString != null) {
             Mesh mesh = Mesh.fromJsonString(jsonString);
             MeshSpotFinder finder = new MeshSpotFinder(mesh);
