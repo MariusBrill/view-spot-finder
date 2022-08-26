@@ -53,21 +53,23 @@ public class MeshSpotFinder {
     }
 
     private boolean isNewSpot(Element element) {
-        //Check if the element was not visited yet to avoid duplicates
+        //Check if the element was not visited yet to avoid duplicates.
         if(visitedElements.containsKey(element.getId())) {
             return false;
         }
         visitedElements.put(element.getId(), element);
         List<Element> neighbours = new ArrayList<>();
-        //Retrieve all neighbouring elements
+        //Retrieve all neighbouring elements.
         for (String nodeId: element.getNodes()) {
             neighbours.addAll(mesh.getNodeToElementRelation().get(nodeId));
         }
-        //Check if the selection of elements is a spot
+
         for(Element neighbourElement : neighbours) {
+            //Check if the selection of elements is a spot.
             if(neighbourElement.getHeight() > element.getHeight()) {
                 return false;
             }
+            //In this case, multiple elements may form a spot.
             if(neighbourElement.getHeight() == element.getHeight()) {
                 if(!visitedElements.containsKey(neighbourElement.getId())) {
                     if (!isNewSpot(neighbourElement)) {
