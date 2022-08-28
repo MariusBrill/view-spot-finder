@@ -11,7 +11,7 @@ public abstract class ElementListPrinter {
 
     public static void print(List<Element> elements) {
         System.out.println("[");
-        elements.forEach(element -> System.out.println("  " + element.toString()));
+        elements.forEach(element -> System.out.println("  " + element.toString() + ","));
         System.out.println("]");
     }
 }
