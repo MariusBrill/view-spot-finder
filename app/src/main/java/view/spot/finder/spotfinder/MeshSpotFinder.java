@@ -39,14 +39,13 @@ public class MeshSpotFinder {
         visitedElements = new HashMap<>();
         List<Element> spots = new ArrayList<>();
         for (HeightValue heightValue : mesh.getHeightValues()) {
+            if (spots.size() == n) {
+                return  spots;
+            }
             Element currentElement = mesh.getElementMap().get(heightValue.getElement_id());
 
             if (isNewSpot(currentElement)) {
                 spots.add(currentElement);
-
-                if (spots.size() == n) {
-                    return  spots;
-                }
             }
         }
         return spots;

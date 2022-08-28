@@ -235,4 +235,39 @@ class SpotFinderIntTest {
 
         Assertions.assertEquals(expected, actual);
     }
+
+    @Test void nIsZero() {
+        String meshJSON = "{ "
+                + "\"nodes\": ["
+                + "{\"id\": \"node_id1\", \"x\": 0.0, \"y\": 1.0},"
+                + "{\"id\": \"node_id2\", \"x\": 1.0, \"y\": 2.0},"
+                + "{\"id\": \"node_id3\", \"x\": 3.0, \"y\": 4.0},"
+                + "{\"id\": \"node_id4\", \"x\": 3.0, \"y\": 4.0},"
+                + "{\"id\": \"node_id5\", \"x\": 3.0, \"y\": 4.0},"
+                + "{\"id\": \"node_id6\", \"x\": 3.0, \"y\": 4.0},"
+                + "{\"id\": \"node_id7\", \"x\": 3.0, \"y\": 4.0},"
+                + "{\"id\": \"node_id8\", \"x\": 3.0, \"y\": 4.0},"
+                + "{\"id\": \"node_id9\", \"x\": 3.0, \"y\": 4.0}"
+                + "],"
+                + "\"elements\": ["
+                +"{\"id\": \"element_id1\", \"nodes\": [\"node_id1\", \"node_id2\", \"node_id3\"]},"
+                +"{\"id\": \"element_id2\", \"nodes\": [\"node_id1\", \"node_id4\", \"node_id5\"]},"
+                +"{\"id\": \"element_id3\", \"nodes\": [\"node_id5\", \"node_id6\", \"node_id7\"]},"
+                +"{\"id\": \"element_id4\", \"nodes\": [\"node_id7\", \"node_id8\", \"node_id9\"]}"
+
+                + "],"
+                + "\"values\": ["
+                + "{\"element_id\": \"element_id1\", \"value\": 0.0},"
+                + "{\"element_id\": \"element_id2\", \"value\": 1.0},"
+                + "{\"element_id\": \"element_id3\", \"value\": 0.0},"
+                + "{\"element_id\": \"element_id4\", \"value\": 1.0}"
+                + "]"
+                + "}";
+
+        Mesh mesh = Mesh.fromJsonString(meshJSON);
+        MeshSpotFinder finder = new MeshSpotFinder(mesh);
+        List<Element> actual = finder.findSpots(0);
+
+        Assertions.assertEquals(actual.size(), 0);
+    }
 }
